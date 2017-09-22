@@ -244,8 +244,7 @@ class Router
         // look for group router via the prefix.
         if ($path != '' && $path != '/' && count($this->groups) > 0) {
             $start = ($path[0] == '/') ? 1 : 0;
-            $pos = strpos($path, '/', $start);
-            if ($pos) {
+            if (false !== $pos = strpos($path, '/', $start)) {
                 $len = $pos + 1 - $start - (($path[$pos] == '/') ? 1 : 0);
                 $prefix = substr($path, $start, $len);
             } else {
