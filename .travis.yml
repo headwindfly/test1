@@ -25,5 +25,4 @@ before_script:
   - echo 'assert.exception=On' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 script:
-  - phpunit --coverage-clover build/logs/clover.xml
-  ./codeclimate.sh
+  - phpunit
