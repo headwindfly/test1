@@ -1,6 +1,6 @@
 # PHP Router
 
-A fast and high scalable HTTP router for PHP.
+A fast and high scalable HTTP router for PHP..
 
 
 ## Requirements
