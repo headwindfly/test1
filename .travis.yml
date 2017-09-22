@@ -11,6 +11,7 @@ env:
     - DEPENDENCIES="low"
   global:
     - DEFAULT_COMPOSER_FLAGS="--no-interaction --no-ansi --no-progress --no-suggest"
+    - CC_TEST_REPORTER_ID=636c5e3939d10c8281aa2983947e317caf82707e1b1ff0f2a37a38639e8cff19
 
 before_install:
   - composer self-update
@@ -23,10 +24,13 @@ install:
 before_script:
   - echo 'zend.assertions=1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - echo 'assert.exception=On' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 
 script:
   - phpunit --coverage-clover build/logs/clover.xml
+  - bundle exec rspec
 
 after_success:
- - travis_retry php coveralls.phar -v
- - bash <(curl -s https://codecov.io/bash)
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
